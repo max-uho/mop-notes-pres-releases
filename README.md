@@ -26,11 +26,11 @@ A cell is a group of content that the app places within a slide. Text starts at 
 | Press Return once | Another paragraph in the same cell |
 | Leave one or more empty lines | Spacing within the same cell |
 | Put `+` on its own line | A new cell |
-| Insert an Apple Notes divider line, or put `===` or `===class===` on its own line | A new slide |
+| Insert an Apple Notes divider line, or put `---`, `===`, or `===class===` on its own line | A new slide |
 
-Paragraph returns and soft line breaks behave the same way. Use whichever is easiest to type in Notes. Each empty line between content adds one blank line within the cell: two empty lines in Notes give two empty lines in the presentation. Blank lines immediately before or after a slide divider, `===` (including named variants), or `+` are ignored. Leading and trailing `+` markers and repeated separators without content are ignored; use `Empty:` to reserve an empty cell. Trailing blank lines are ignored, so extra space at the end does not add an empty slide. A trailing divider line or explicit `===` still creates one.
+Paragraph returns and soft line breaks behave the same way. Use whichever is easiest to type in Notes. Each empty line between content adds one blank line within the cell: two empty lines in Notes give two empty lines in the presentation. Blank lines immediately before or after a slide divider, `---`, `===` (including named variants), or `+` are ignored. Leading and trailing `+` markers and repeated separators without content are ignored; use `Empty:` to reserve an empty cell. Trailing blank lines are ignored, so extra space at the end does not add an empty slide. A trailing divider line, `---`, or explicit `===` still creates one.
 
-The separators must occupy a line by themselves; surrounding spaces and bold, italic, or underline formatting are allowed. `A + B` remains ordinary text.
+The preferred text slide separator is `---`; `===` remains a legacy alias. Neither text separator is recognized inside lists, tables, monostyled/code content, or native Block Quotes. The separators must occupy a line by themselves; surrounding spaces and bold, italic, or underline formatting are allowed. `A + B` remains ordinary text.
 
 Every slide divider starts a new slide: consecutive dividers and a divider at the end create empty slides. Cell separators behave differently: repeated or edge `+` markers never reserve blank slots.
 
@@ -44,13 +44,13 @@ A short introduction
 +
 The project team
 Design and research
-===
+---
 The next slide
 ```
 
 The first paragraph, when formatted as **Title**, is used as the note name and hidden from the slides. Use **Heading** for the first visible heading, or place your slide content after the note title. Later Title paragraphs remain visible.
 
-Use Notes’ own Title, Heading, Subheading and Body styles, plus bold, italic, underline, strikethrough, highlights, links, lists and tables. No HTML or CSS is needed. The presentation applies its own typography and layout while preserving supported inline formatting.
+Use Notes’ own Title, Heading, Subheading and Body styles, plus bold, italic, underline, strikethrough, highlights, monostyled/code text, links, lists, checklists and tables. No HTML or CSS is needed. The presentation applies its own typography and layout while preserving supported inline formatting.
 
 One cell fills a slide; two sit side by side. Larger groups use a balanced grid, keeping cells close to the slide’s aspect ratio:
 
@@ -66,9 +66,9 @@ Cells fill rows from left to right; the last row may have unused space. Empty sl
 
 ## Style a slide
 
-Put `===demo===` on its own line to start a slide with the default theme’s demo border. You can use it right after the note title to style the first slide. Use plain `===` for the default layout.
+Put `===demo===` on its own line to start a slide with the default theme’s demo border. You can use it right after the note title to style the first slide. Use a native divider or `---` for the default layout; plain `===` is also supported.
 
-A name starts with a lowercase letter and can contain lowercase letters, digits, and hyphens. Theme authors can style a name such as `demo` with `.slide-class-demo`. If a theme has no matching rule, the slide uses the default styling. A plain divider or `===` starts the next slide without inheriting the previous slide’s name. A named marker at the very beginning styles the first slide without creating a blank slide; anywhere else it starts a new slide.
+A name starts with a lowercase letter and can contain lowercase letters, digits, and hyphens. Theme authors can style a name such as `demo` with `.slide-class-demo`. If a theme has no matching rule, the slide uses the default styling. A plain divider, `---`, or `===` starts the next slide without inheriting the previous slide’s name. A named marker at the very beginning styles the first slide without creating a blank slide; anywhere else it starts a new slide.
 
 ## Reserve an empty cell
 
@@ -121,7 +121,11 @@ Available styles are `rounded`, `rounded-lg`, `rounded-xl`, `border`, `border-2`
 
 ## Speaker notes
 
-At the end of a slide in Apple Notes, create a **Block Quote** using **Format → Block Quote**. Start its first line with **`Note:`** or **`note:`**, then write your cues below it. Bold, italic, underline, strikethrough, lists, and skipped lines are preserved. The whole quote stays out of the audience presentation and PDF, including when it appears before more audience content. Ordinary blockquotes remain visible. Older plain `Note:` blocks are still supported: a standalone `Note:` hides everything until the next slide divider, while `Note: cue` hides that one line. Use a Block Quote for new notes. Layout commands inside a private quote remain speaker text. Native Mint, Orange, Purple, Pink, and Blue highlights are read from Notes and retained in the presentation theme.
+In Apple Notes, create a **Block Quote** using **Format → Block Quote** for your speaker cues, normally at the end of a slide. No `Note:` header is required. Consecutive quote paragraphs belong to the current slide’s speaker notes, regardless of cells. Bold, italic, underline, strikethrough, lists, and skipped lines are preserved. The whole quote stays out of the audience presentation and PDF; normal content following the quote stays visible.
+
+All native Block Quotes are reserved for speaker notes. For an audience-facing quotation, use quotation marks in an ordinary Body paragraph. An optional leading `Note:` or `note:` is removed from the cues. Older plain `Note:` blocks remain supported: a standalone `Note:` hides everything until the next slide divider, while `Note: cue` hides that one line. Text such as `---`, `===`, `+`, and image commands inside a native quote remains literal speaker content.
+
+Native Mint, Orange, Purple, Pink, and Blue highlights are read from Notes and retained in the presentation theme.
 
 Choose **View → Speaker Notes…** (**⌘⇧P**) to open the presenter window with current and next slides, speaker notes, a timer and navigation controls. Choosing it again focuses that window. Closing the main presentation also closes the presenter.
 
